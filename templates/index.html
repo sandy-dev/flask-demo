@@ -1,40 +1,55 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<title>Task Master</title>
-{% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">Task Master</h1>
+<div class="row my-md-5">
+
     {% if tasks|length < 1 %}
     <h4 style="text-align: center">There are no tasks. Create one below!</h4>
     {% else %}
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm p-3 text-center bg-info border-right border-dark">
+                Task
+            </div>
+            <div class="col-sm p-3 text-center bg-info border-right border-dark">
+                Added
+            </div>
+            <div class="col-sm p-3 text-center bg-info">
+                Actions
+            </div>
+        </div>
+
         {% for task in tasks %}
-        <tr>
-            <td>{{ task.content }}</td>
-            <td>{{ task.date_created.date() }}</td>
-            <td>
-                <a href="/delete/{{task.id}}">Delete</a>
-                <br>
+
+        <div class="row">
+            <div class="col-sm p-3 border-left border-right border-bottom border-muted">
+                {{ task.content }}
+            </div>
+            <div class="col-sm p-3 border-right border-bottom border-muted">
+                {{ task.date_created.date() }}
+            </div>
+            <div class="col-sm p-3 border-right border-bottom border-muted">
+                <a href="/delete/{{task.id}}">Delete</a> &nbsp;
                 <a href="/update/{{task.id}}">Update</a>
-            </td>
-        </tr>
+            </div>
+        </div>
+
         {% endfor %}
-    </table>
+
+    </div>
+
     {% endif %}
 
-    <div class="form">
-        <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
-        </form>
+    <div class="container p-3">
+        <div class="form-inline">
+            <form action="/" method="POST">
+                <input type="text" name="content" class="form-control" id="content">
+                <input type="submit" class="btn btn-primary" value="Add Task">
+            </form>
+        </div>
     </div>
+
 </div>
 {% endblock %}
